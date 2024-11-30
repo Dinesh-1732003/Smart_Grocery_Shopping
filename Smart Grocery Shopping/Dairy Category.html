@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+
+    <title>
+
+        Dairy Products
+
+    </title>
+
+    <script src="https://kit.fontawesome.com/5471644867.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="Snacks Category.css">
+    
+    <link rel="shortcut icon" type="image/jpg" href="C:\Users\hp\Desktop\College\First Semester\Introduction To Web Technologies\Notepad ++ Files\Project\favicon.ico"/>
+
+    <body>
+
+        <section id="popular-product">
+            <!--heading----------->
+            <div class="product-heading">
+                <h2 class = 'fruits-heading'>Dairy Products</h2>
+            </div>
+            <!--box-container------>
+            <div class="product-container">
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="milk" src="images\milk.png">
+                    <strong>milk</strong>
+                    <span class="quantity">1Litre</span>
+                    <span class="price">Rs. 40</span>
+                    <a class="cart-btn" data-name="milk" data-price="40" data-image="images\milk.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="butter" src="images\butter.jpeg">
+                    <strong>Butter</strong>
+                    <span class="quantity">1Litre</span>
+                    <span class="price">Rs. 125</span>
+                    <a class="cart-btn" data-name="Butter" data-price="125" data-image="images\butter.jpeg">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="paneer" src="images\paneer.jpeg">
+                    <strong>Paneer</strong>
+                    <span class="quantity">250Gram</span>
+                    <span class="price">Rs. 125</span>
+                    <a class="cart-btn" data-name="Paneer" data-price="125" data-image="images\paneer.jpeg">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="ghee" src="images\ghee.png">
+                    <strong>Ghee</strong>
+                    <span class="quantity">1Litre</span>
+                    <span class="price">Rs. 167</span>
+                    <a class="cart-btn" data-name="Ghee" data-price="167" data-image="images\ghee.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="cheese" src="images\cheese.png">
+                    <strong>Cheese</strong>
+                    <span class="quantity">100Gram</span>
+                    <span class="price">Rs. 90</span>
+                    <a class="cart-btn" data-name="Cheese" data-price="90" data-image="images\cheese.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="icecream" src="images\icecream.jpeg">
+                    <strong>Ice Cream</strong>
+                    <span class="quantity">CUP of 5</span>
+                    <span class="price">Rs. 200</span>
+                    <a class="cart-btn" data-name="Ice Cream" data-price="200" data-image="images\icecream.jpeg">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    document.querySelectorAll('.cart-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            const image = button.getAttribute('data-image');
+            const existingProduct = cart.find(item => item.name === name);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${name} has been added to your cart!`);
+        });
+    });
+});
+
+        </script>
+    </body>
+
+</html>

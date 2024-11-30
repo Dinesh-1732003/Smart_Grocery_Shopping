@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+    <title>
+
+        Vegetables
+
+    </title>
+
+    <script src="https://kit.fontawesome.com/5471644867.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="Vegetable Category.css">
+    
+    <link rel="shortcut icon" type="image/jpg" href="C:\Users\hp\Desktop\College\First Semester\Introduction To Web Technologies\Notepad ++ Files\Project\favicon.ico"/>
+
+    <body>
+
+        <section id="popular-product">
+            <!--heading----------->
+            <div class="product-heading">
+                <h2 class = 'fruits-heading'>Vegetables</h2>
+            </div>
+            <!--box-container------>
+            <div class="product-container">
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="garlic" src="images\garlic.png">
+                    <strong>Garlic</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 100</span>
+                    <a class="cart-btn" data-name="Garlic" data-price="100" data-image="images\garlic.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="chili" src="images\chili.png">
+                    <strong>Chili</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 80</span>
+                    <a class="cart-btn" data-name="Chili" data-price="80" data-image="images\chili.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="onion" src="images\onion.png">
+                    <strong>Onion</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 50</span>
+                    <a class="cart-btn" data-name="Onion" data-price="50" data-image="images\onion.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="carrot" src="images\carrot product.jpeg">
+                    <strong>Carrots</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 60</span>
+                    <a class="cart-btn" data-name="Carrots" data-price="60" data-image="images\carrot product.jpeg">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="potato" src="images\patato.png">
+                    <strong>Potato</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 80</span>
+                    <a class="cart-btn" data-name="Potato" data-price="80" data-image="images\potato.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+                <!--box---------->
+                <div class="product-box">
+                    <img alt="tomato" src="images\tamato.png">
+                    <strong>Tomato</strong>
+                    <span class="quantity">1 KG</span>
+                    <span class="price">Rs. 80</span>
+                    <a class="cart-btn" data-name="Tomato" data-price="80" data-image="images\tamato.png">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add click event listeners to all cart-btn buttons
+    document.querySelectorAll('.cart-btn').forEach(button => {
+        button.addEventListener('click', event => {
+            event.preventDefault(); // Prevent default navigation (if button is an anchor tag)
+
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            const image = button.getAttribute('data-image');
+
+            // Validate that required attributes exist
+            if (!name || !price || !image) {
+                alert("Error: Missing product details.");
+                return;
+            }
+
+            // Check if product is already in the cart
+            const existingProduct = cart.find(item => item.name === name);
+            if (existingProduct) {
+                existingProduct.quantity += 1; // Increment quantity if product exists
+            } else {
+                // Add new product to the cart
+                cart.push({
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+
+            // Save updated cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Provide feedback to the user
+            alert(`${name} has been added to your cart!`);
+        });
+    });
+});
+
+</script>
+
+    </body>
+
+</html>

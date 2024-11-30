@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <link rel ="stylesheet" type="text/css" href="Shopping Cart CSS.css">
+
+		<script src="https://kit.fontawesome.com/9088cc6401.js" crossorigin="anonymous"></script>
+        
+    <!-- <script defer src="cart.js"></script> -->
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="cart">
+            <div class="products" id="cart-products">
+                <!-- Dynamic Products will be loaded here -->
+            </div>
+            <div class="cart-total">
+                <p>
+                    <span>Total Price</span>
+                    <span id="total-price">Rs. 0</span>
+                </p>
+                <p>
+                    <span>No. of Items</span>
+                    <span id="item-count">0</span>
+                </p>
+                <a href="Details For Checkout HTML.html">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartProducts = document.getElementById('cart-products');
+            const totalPriceElement = document.getElementById('total-price');
+            const itemCountElement = document.getElementById('item-count');
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            function renderCart() {
+                cartProducts.innerHTML = '';
+                let totalPrice = 0;
+                let itemCount = 0;
+
+                cart.forEach((item, index) => {
+                    const product = document.createElement('div');
+                    product.classList.add('product');
+
+                    const subtotal = item.quantity * item.price;
+                    totalPrice += subtotal;
+                    itemCount += item.quantity;
+
+                    product.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="product-info">
+                            <h3 class="product-name">${item.name}</h3>
+                            <h4 class="product-price">Rs. ${item.price}</h4>
+                            <p class="product-quantity">
+                                Qnt: 
+                                <input type="number" value="${item.quantity}" min="1" data-index="${index}">
+                            </p>
+                            <p class="product-remove">
+                                <i class="fas fa-trash-alt"></i>
+                                <span class="remove" data-index="${index}">Remove</span>
+                            </p>
+                        </div>
+                    `;
+                    cartProducts.appendChild(product);
+                });
+
+                totalPriceElement.textContent = `Rs. ${totalPrice}`;
+                itemCountElement.textContent = `${itemCount}`;
+            }
+
+            cartProducts.addEventListener('click', event => {
+                if (event.target.classList.contains('remove')) {
+                    const index = event.target.getAttribute('data-index');
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+            });
+
+            cartProducts.addEventListener('input', event => {
+                if (event.target.type === 'number') {
+                    const index = event.target.getAttribute('data-index');
+                    const newQuantity = parseInt(event.target.value);
+                    if (newQuantity > 0) {
+                        cart[index].quantity = newQuantity;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCart();
+                    }
+                }
+            });
+
+            renderCart();
+        });
+    </script>
+</body>
+</html>
